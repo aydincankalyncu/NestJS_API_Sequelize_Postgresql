@@ -1,4 +1,4 @@
-import { Body, Controller, ForbiddenException, Get, HttpException, HttpStatus, Post, Req, UseFilters } from '@nestjs/common';
+import { Body, Controller, ForbiddenException, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post, Req, UseFilters } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
 import { CreateProductDto } from 'src/products/dtos/CreateProductDto';
 import { Request } from 'express';
@@ -7,11 +7,12 @@ import { Product } from 'src/products/interfaces/product.interface';
 import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
 
 @Controller('products')
+// @UseFilters(new HttpExceptionFilter())
 export class ProductsController {
     constructor(private productService: ProductsService){}
 
     @Post()
-    @UseFilters(new HttpExceptionFilter())
+    
     async create(@Body() createProductDto: CreateProductDto){
         throw new ForbiddenException();
         //this.productService.create(createProductDto);
@@ -26,5 +27,10 @@ export class ProductsController {
         // }, HttpStatus.FORBIDDEN);
         throw new ForbiddenException();
         //return this.productService.findAll();
+    }
+
+    @Get(':id')
+    async findOne(@Param('id', ParseIntPipe) id: number){
+        return this.productService.findOne(id);
     }
 }
