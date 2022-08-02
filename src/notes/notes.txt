@@ -1,0 +1,105 @@
+@Get()
+    getAll(): string {
+        return 'You listed all products.';
+    }
+
+    //Request object
+    //We can access the request object by adding the @Req() decoreator inside method
+    @Get('test')
+    getTestProduct(@Req() request: Request): string {
+        return 'You got test product with request object.';
+    }
+
+    /**
+     * Request object represents the HTTP request and has properties for the request.
+     * Query string, parameters, HTTP header and body.
+     * You can give specific decorator such as @Body() @Query()
+     */
+
+    @Post()
+    createProduct():string{
+        return 'New product added.';
+    }
+
+    /**
+     * Route wildcards
+     * Pattern based routes are supported.
+     * @Get('ab*cd)
+     * it matchs abcd, ab_cd, abecd
+     */
+
+    /**
+     * Status Code
+     * For ex. post request return 201 status code, we can change status code for each request.
+     * @HttpCode(204) decorator 
+     * @Post()
+     * @HttpCode(204) from @nestjs/common
+     * create(){
+     * return 'This action is post example which returns status code 204'; 
+     * }
+     */
+
+    /**
+     * Headers
+     * To specify a custom response header @Header() decorator can be used.
+     * @Post()
+     * @Header('Cache-Control', 'none') from @nestjs/common
+     * create(){
+     * return 'This action test';
+     * }
+     */
+
+    /**
+     * Redirection
+     * To redirect a response to a specific URL you can use @Redirect() decorator or res.redirect()
+     * It takes two arguments, url and statusCode both are optional.
+     * The default value of statusCode=302
+     * @Get()
+     * @Redirect('https://nestjs.com',301)
+     * 
+     * You can override any arguments passed to @Redirect() decorator.
+     * @Get('docs)
+     * @Redirect('https://docs.nestjs.com', 302)
+     * getDocs(@Query('version') version){
+     * if(version %% version === '5'){
+     *      return {url: 'https://docs.nestjs.com/v5/'};
+     *  }
+     * }
+     */
+
+    /**
+     * Route parameters
+     * for ex. GET/products/1
+     * @Get(':id')
+     * findOne(@Param() params): string{ // from @nestjs/common
+     *  console.log(params.id);
+     *  return `This.action returns a #${params.id} product`;
+     * }
+     */
+
+    /**
+     * Asynchronity
+     * All async functions has to return a Promise
+     * These two statements below are totaly same.
+     * 
+     */
+
+    @Get()
+    async findAll(): Promise<any[]>{
+        return [];
+    }
+
+    @Get()
+    findAllObservable(): Observable<any[]>{
+        return of([]);
+    }
+
+
+    /**
+     * Request payloads
+     */
+
+    @Post()
+    async createProductAsync(@Body() createProductDto: CreateProductDto){
+        return 'This action add new product.';
+    }
