@@ -4,7 +4,7 @@ import { CreateProductDto } from 'src/products/dtos/CreateProductDto';
 import { Request } from 'express';
 import { ProductsService } from './products.service';
 import { Product } from 'src/products/interfaces/product.interface';
-import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
+// import { HttpExceptionFilter } from 'src/notes/common/exception/http-exception.filter';
 
 @Controller('products')
 // @UseFilters(new HttpExceptionFilter())

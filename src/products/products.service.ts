@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { logger } from 'src/common/middleware/logger.middleware';
+import { logger } from 'src/notes/common/middleware/logger.middleware';
 import { Product } from 'src/products/interfaces/product.interface';
 
 @Injectable()
